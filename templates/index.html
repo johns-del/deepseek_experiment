@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepSeek问答系统</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 侧边栏 -->
+        <div class="sidebar">
+            <div class="app-logo">
+                <img src="/static/images/deepseek.png" alt="DeepSeek AI" class="bot-avatar">
+                <h2>DeepSeek问答</h2>
+            </div>
+            
+            <button id="new-chat-btn" class="new-chat-btn">
+                <i class="fas fa-plus"></i> 新建会话
+            </button>
+            
+            <div class="search-toggle">
+                <span>联网搜索</span>
+                <label class="switch">
+                    <input type="checkbox" id="search-toggle-btn" checked>
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            
+            <div class="history-container">
+                <h3>历史会话</h3>
+                <div class="history-list" id="history-list">
+                    {% for conversation in conversations %}
+                    <div class="history-item" data-id="{{ conversation.id }}">
+                        <i class="fas fa-comments"></i>
+                        <span class="history-title">{{ conversation.title }}</span>
+                        <span class="history-date">{{ conversation.timestamp.split(' ')[0] }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- 主内容区 -->
+        <div class="main-content">
+            <div class="chat-container" id="chat-container">
+                <!-- 欢迎消息 -->
+                <div class="message bot-message">
+                    <div class="message-avatar">
+                        <img src="{{ url_for('static', filename='images/bot-avatar.png') }}" alt="DeepSeek">
+                    </div>
+                    <div class="message-content">
+                        <p>你好！我是DeepSeek助手，有什么可以帮到你的？</p>
+                    </div>
+                </div>
+                
+                <!-- 消息会动态添加到这里 -->
+            </div>
+            
+            <div class="input-container">
+                <textarea id="user-input" placeholder="输入你的问题..." rows="1"></textarea>
+                <button id="send-btn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.0.2/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.11.0/lottie.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html> 
